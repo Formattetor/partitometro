@@ -93,11 +93,6 @@
     <div class="border-t border-[#191919] border-b border-[#191919] py-2 px-4 bg-[#fbfbf9]">
       <div class="max-w-5xl mx-auto flex items-center justify-between text-xs font-semibold uppercase tracking-wider">
         <span class="text-[#82182b]">Edizione Dati & Statistiche</span>
-        <div class="flex items-center gap-4">
-          <button id="btnOpenGitHubModal" class="text-[#57534e] hover:text-[#191919] transition underline decoration-1 underline-offset-4">
-            Pubblica su GitHub Pages
-          </button>
-        </div>
       </div>
     </div>
   </header>
@@ -350,36 +345,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- MODALE GUIDA PER GITHUB PAGES (Stile Report Editoriale) -->
-  <div id="modalGitHub" class="fixed inset-0 z-50 bg-[#191919]/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-[#ffffff] border border-[#191919] max-w-lg w-full p-6 sm:p-8 shadow-xl relative">
-      <button onclick="document.getElementById('modalGitHub').classList.add('hidden')" class="absolute top-4 right-4 text-[#78716c] hover:text-[#191919] text-lg font-bold">✕</button>
-      
-      <div class="text-[11px] font-bold uppercase tracking-wider text-[#82182b] mb-1">
-        Istruzioni di Distribuzione
-      </div>
-      <h3 class="font-serif text-2xl font-bold text-[#191919] mb-3">
-        Come pubblicare su GitHub Pages
-      </h3>
-
-      <p class="text-xs text-[#57534e] mb-4 leading-relaxed font-sans">
-        Poiché disponi di un account GitHub Pro (o un qualsiasi account pubblico), puoi trasformare questo singolo file in un'applicazione web accessibile da chiunque in 60 secondi:
-      </p>
-
-      <ol class="space-y-3 text-xs text-[#292524] list-decimal pl-4 mb-6 leading-relaxed">
-        <li>Crea un nuovo repository su GitHub (es. <code class="bg-[#f0f0eb] px-1.5 py-0.5 rounded font-mono text-[#82182b]">partitometro</code>).</li>
-        <li>Salva questo codice come file denominato rigorosamente <code class="bg-[#f0f0eb] px-1.5 py-0.5 rounded font-mono text-[#82182b]">index.html</code> ed esegui il caricamento (upload o git push) nel ramo <strong>main</strong>.</li>
-        <li>Nel tuo repository, fai clic sulla scheda <strong>Settings</strong> &rarr; voce <strong>Pages</strong> nel menu di sinistra.</li>
-        <li>In <em>Source</em> seleziona <strong>Deploy from a branch</strong>, seleziona <strong>main</strong> e cartella <strong>/ (root)</strong>, quindi premi <strong>Save</strong>.</li>
-        <li>Il link pubblico sarà operativo in pochi istanti: <br><span class="font-mono text-[#1b365d] font-semibold text-[11px]">https://[tuo-username].github.io/partitometro/</span></li>
-      </ol>
-
-      <button onclick="document.getElementById('modalGitHub').classList.add('hidden')" class="w-full py-2.5 bg-[#191919] hover:bg-[#82182b] text-white text-xs font-semibold uppercase tracking-wider transition">
-        Chiudi finestra
-      </button>
-    </div>
-  </div>
 
   <!-- TOAST DI NOTIFICA MINIMALE -->
   <div id="editorialToast" class="fixed bottom-6 right-6 z-50 bg-[#191919] text-[#fbfbf9] text-xs font-medium py-3 px-5 border-l-4 border-[#82182b] shadow-lg transform translate-y-24 opacity-0 transition duration-300 pointer-events-none">
