@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="it" class="h-full bg-[#fbfbf9] text-[#1c1917]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Partitometro • Inchiesta e Bussola Politica</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Tipografici Editoriali: Newsreader (Serif) & Inter (Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            paper: '#fbfbf9',
+            card: '#ffffff',
+            ink: '#191919',
+            'ink-muted': '#57534e',
+            'ink-faint': '#8c887b',
+            editorial: '#82182b', // Bordeaux classico giornalistico
+            navy: '#1b365d',
+            rule: '#e5e5df',
+            'rule-dark': '#d0d0c6'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Rifiniture tipografiche stile quotidiano / rivista */
+    body {
+      background-color: #fbfbf9;
+      color: #191919;
+      -webkit-font-smoothing: antialiased;
+    }
+    .editorial-border-double {
+      border-bottom: 3px double #191919;
+    }
+    .editorial-border-single {
+      border-bottom: 1px solid #191919;
+    }
+    .editorial-box {
+      background: #ffffff;
+      border: 1px solid #e2e2dc;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    /* Stile della barra di avanzamento */
+    .progress-track {
+      background-color: #ecece6;
+    }
+    .progress-fill {
+      background-color: #82182b;
+      transition: width 0.3s ease-out;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col font-sans selection:bg-[#82182b] selection:text-white">
+
+  <!-- MASTHEAD / TESTATA GIORNALISTICA -->
+  <header class="border-b border-[#e5e5df] bg-[#ffffff]">
+    <!-- Riga superiore metadati -->
+    <div class="max-w-5xl mx-auto px-4 py-2 border-b border-[#f0f0eb] flex flex-wrap items-center justify-between text-[11px] uppercase tracking-wider text-[#78716c] font-medium">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#82182b]"></span>
+        <span>Osservatorio Elettorale • Data Journalism</span>
+      </div>
+      <div>Quesiti Parlamentari & Sociali</div>
+      <div class="hidden sm:block">Metodologia su 20 Punti Chiave</div>
+    </div>
+
+    <!-- Testata centrale grande formato -->
+    <div class="max-w-5xl mx-auto px-4 py-6 text-center">
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-[#191919]">
+        IL PARTITOMETRO
+      </h1>
+      <p class="font-serif italic text-sm sm:text-base text-[#57534e] mt-1">
+        Bussola politica interattiva e calcolo di affinità per le elezioni parlamentari
+      </p>
+    </div>
+
+    <!-- Barra di navigazione sobria -->
+    <div class="border-t border-[#191919] border-b border-[#191919] py-2 px-4 bg-[#fbfbf9]">
+      <div class="max-w-5xl mx-auto flex items-center justify-between text-xs font-semibold uppercase tracking-wider">
+        <span class="text-[#82182b]">Edizione Dati & Statistiche</span>
+        <div class="flex items-center gap-4">
+          <button id="btnOpenGitHubModal" class="text-[#57534e] hover:text-[#191919] transition underline decoration-1 underline-offset-4">
+            Pubblica su GitHub Pages
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENUTO PRINCIPALE -->
+  <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 md:p-8 flex flex-col justify-center">
+
+    <!-- 1. INTRODUZIONE / SCHERMATA INIZIALE -->
+    <section id="screenIntro" class="editorial-box rounded-none p-6 sm:p-10 my-4">
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="text-[11px] font-bold uppercase tracking-widest text-[#82182b] mb-3">
+          Inchiesta Elettorale Interattiva
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl text-[#191919] font-bold leading-tight mb-4">
+          A quale forza politica è più vicino il tuo voto?
+        </h2>
+        <p class="text-[#57534e] text-sm sm:text-base leading-relaxed mb-8 font-sans">
+          Il dibattito pubblico è spesso frammentato tra slogan e dichiarazioni d'occasione. Questo strumento mette a confronto le tue posizioni personali con i programmi e i comportamenti di voto effettivi delle <strong>8 principali formazioni politiche</strong> del Parlamento e della scena nazionale.
+        </p>
+
+        <!-- Box partiti censiti -->
+        <div class="border-t border-b border-[#e5e5df] py-5 mb-8 text-left bg-[#fafaf8] px-4 sm:px-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#191919] mb-3 flex items-center justify-between">
+            <span>Le 8 forze politiche mappate</span>
+            <span class="text-[#78716c] font-normal text-[11px]">Posizioni verificate</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-[#292524]">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#1b365d]"></span> Fratelli d'Italia</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#b91c1c]"></span> Partito Democratico</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#d97706]"></span> Movimento 5 Stelle</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#15803d]"></span> Lega</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#0284c7]"></span> Forza Italia</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#059669]"></span> Alleanza Verdi Sinistra</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#7c3aed]"></span> Polo Riformista (Az/IV)</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#854d0e]"></span> Futuro Nazionale</div>
+          </div>
+        </div>
+
+        <!-- Note metodologiche sintetiche -->
+        <div class="text-xs text-[#78716c] mb-8 text-left leading-relaxed">
+          <strong class="text-[#292524]">Nota metodologica:</strong> Il questionario misura la convergenza programmatica su due dimensioni distinte: la regolazione economica e redistributiva (asse orizzontale) e i diritti civili, istituzioni ed etica pubblica (asse verticale).
+        </div>
+
+        <button id="btnStartQuiz" class="w-full sm:w-auto px-8 py-3.5 bg-[#191919] hover:bg-[#82182b] text-white font-medium text-sm tracking-wide transition duration-150 rounded-none shadow-sm flex items-center justify-center gap-2 mx-auto">
+          <span>Inizia il Questionario (20 Domande)</span>
+          <span class="text-base">→</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- 2. QUESTION SCREEN -->
+    <section id="screenQuiz" class="hidden editorial-box rounded-none p-6 sm:p-10 my-4">
+      
+      <!-- Riga progresso tipografica -->
+      <div class="mb-8">
+        <div class="flex items-baseline justify-between border-b border-[#e5e5df] pb-3 mb-3">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-[#82182b] mr-2">Quesito</span>
+            <span class="font-serif text-lg font-bold text-[#191919]">
+              <span id="questionCurrentNum">1</span> <span class="font-normal text-sm text-[#78716c]">di 20</span>
+            </span>
+          </div>
+          <span id="questionCategory" class="text-xs font-semibold text-[#57534e] uppercase tracking-wider">
+            Categoria
+          </span>
+        </div>
+        
+        <!-- Barra avanzamento grafica sottile -->
+        <div class="w-full h-1 progress-track">
+          <div id="progressBar" class="h-1 progress-fill" style="width: 5%"></div>
+        </div>
+      </div>
+
+      <!-- Corpo del Quesito -->
+      <div class="max-w-2xl mx-auto py-2">
+        <h3 id="questionTitle" class="font-serif text-2xl sm:text-3xl text-[#191919] font-bold leading-tight mb-4">
+          Titolo Quesito
+        </h3>
+
+        <p id="questionDescription" class="text-[#44403c] text-sm sm:text-base leading-relaxed mb-8 font-sans">
+          Descrizione contestuale del tema in discussione.
+        </p>
+
+        <!-- Tasti Risposta Istituzionali -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+          
+          <button onclick="recordVote(1)" class="group p-4 border border-[#d6d6cd] hover:border-[#82182b] bg-[#ffffff] hover:bg-[#fbfbf9] text-left transition duration-150">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#191919] group-hover:text-[#82182b]">Favorevole</span>
+              <span class="text-xs text-[#82182b] font-bold">+</span>
+            </div>
+            <p class="text-[11px] text-[#78716c]">Condivido la misura o la riforma proposta</p>
+          </button>
+
+          <button onclick="recordVote(0)" class="group p-4 border border-[#d6d6cd] hover:border-[#191919] bg-[#ffffff] hover:bg-[#fbfbf9] text-left transition duration-150">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#191919]">Neutro / Incerto</span>
+              <span class="text-xs text-[#78716c]">—</span>
+            </div>
+            <p class="text-[11px] text-[#78716c]">Posizione intermedia o tema non prioritario</p>
+          </button>
+
+          <button onclick="recordVote(-1)" class="group p-4 border border-[#d6d6cd] hover:border-[#82182b] bg-[#ffffff] hover:bg-[#fbfbf9] text-left transition duration-150">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#191919] group-hover:text-[#82182b]">Contrario</span>
+              <span class="text-xs text-[#82182b] font-bold">✕</span>
+            </div>
+            <p class="text-[11px] text-[#78716c]">Respingo la proposta legislativa</p>
+          </button>
+
+        </div>
+
+        <!-- Barra inferiore: Navigazione a ritroso -->
+        <div class="flex items-center justify-between border-t border-[#f0f0eb] pt-4 text-xs text-[#78716c]">
+          <button id="btnPrevQuestion" onclick="stepPreviousQuestion()" class="hover:text-[#191919] font-medium flex items-center gap-1 invisible">
+            <span>← Torna al quesito precedente</span>
+          </button>
+          <span>Risposta richiesta per proseguire</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- 3. RESULTS SCREEN -->
+    <section id="screenResults" class="hidden my-4 space-y-6">
+      
+      <!-- Intestazione Risultati -->
+      <div class="editorial-box p-6 sm:p-8">
+        <div class="border-b border-[#e5e5df] pb-4 mb-6 text-center">
+          <span class="text-[11px] font-bold uppercase tracking-widest text-[#82182b]">
+            Rapporto Conclusivo
+          </span>
+          <h2 class="font-serif text-3xl sm:text-4xl text-[#191919] font-bold mt-1">
+            Il Tuo Profilo Politico ed Elettorale
+          </h2>
+          <p id="resultHeadlineSummary" class="text-sm text-[#57534e] max-w-2xl mx-auto mt-2 font-serif italic">
+            Elaborazione completata sulle 20 votazioni programmatiche.
+          </p>
+        </div>
+
+        <!-- Griglia: Podio Sinistra + Grafico Cartesiano Destra -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Colonna Sinistra: Classifica di Affinità (7 colonne) -->
+          <div class="lg:col-span-7">
+            <div class="flex items-baseline justify-between border-b border-[#191919] pb-2 mb-4">
+              <h3 class="font-serif font-bold text-lg text-[#191919]">
+                Grado di Concordanza Programmatica
+              </h3>
+              <span class="text-[11px] uppercase tracking-wider text-[#78716c]">Scala 0 - 100%</span>
+            </div>
+
+            <!-- Partito Vincitore evidenziato in stile editoriale -->
+            <div id="winnerCalloutBox" class="border-l-4 border-[#82182b] bg-[#fbfbf9] p-4 mb-6 border border-[#e5e5df]">
+              <!-- Riempito dinamicamente -->
+            </div>
+
+            <!-- Tabella barre percentuali per tutti gli 8 partiti -->
+            <div id="fullPartiesRankList" class="space-y-3.5">
+              <!-- Riempito dinamicamente -->
+            </div>
+
+            <div class="text-[11px] text-[#78716c] mt-6 border-t border-[#f0f0eb] pt-3">
+              Indice calcolato confrontando la matrice delle 20 risposte con le posizioni ufficiali, le delibere parlamentari e i manifesti di partito aggiornati al 2026.
+            </div>
+          </div>
+
+          <!-- Colonna Destra: Piano Cartesiano Editoriale (5 colonne) -->
+          <div class="lg:col-span-5 bg-[#fafaf8] border border-[#e2e2dc] p-4 sm:p-5">
+            <div class="flex items-baseline justify-between border-b border-[#e5e5df] pb-2 mb-3">
+              <h3 class="font-serif font-bold text-base text-[#191919]">
+                Diagramma Politico Bipolare
+              </h3>
+              <span id="coordsDisplayBadge" class="text-[10px] font-mono text-[#57534e] bg-[#ffffff] px-2 py-0.5 border border-[#e2e2dc]">
+                X: 0.0 | Y: 0.0
+              </span>
+            </div>
+            
+            <p class="text-[11px] text-[#78716c] mb-3 leading-snug">
+              Rappresentazione cartesiana su due assi ortogonali: <strong>Economia</strong> (Sinistra sociale vs. Mercato) e <strong>Società</strong> (Conservatore vs. Progressista).
+            </p>
+
+            <!-- Canvas interattivo e chiaro -->
+            <div class="w-full aspect-square max-w-[360px] mx-auto bg-[#ffffff] border border-[#d6d6cd] shadow-inner relative flex items-center justify-center">
+              <canvas id="compassCanvas" width="360" height="360" class="w-full h-full block"></canvas>
+            </div>
+
+            <div class="grid grid-cols-2 text-[10px] text-[#78716c] mt-3 gap-2 border-t border-[#e5e5df] pt-2">
+              <div><strong>Asse X:</strong> Regolazione economica</div>
+              <div class="text-right"><strong>Asse Y:</strong> Diritti civili e istituzioni</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- BOX CONDIVISIONE, STAMPA ED ESPORTAZIONE SOCIAL -->
+      <div class="editorial-box p-6 sm:p-8 border-t-2 border-t-[#82182b]">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-left">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-[#82182b] mb-1">
+              Esportazione e Condivisione
+            </div>
+            <h4 class="font-serif text-xl font-bold text-[#191919]">
+              Condividi la tua scheda elettorale
+            </h4>
+            <p class="text-xs text-[#57534e] max-w-lg mt-1 leading-relaxed">
+              Puoi scaricare una grafica infografica ad alta risoluzione (1200×1200 px) in perfetto stile cartaceo per Instagram Stories, WhatsApp e X, oppure copiare la sintesi testuale per i tuoi canali di discussione.
+            </p>
+          </div>
+
+          <!-- Pulsanti Azione -->
+          <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full md:w-auto">
+            
+            <!-- Download PNG -->
+            <button onclick="exportEditorialPNG()" class="flex-1 sm:flex-initial px-5 py-3 bg-[#82182b] hover:bg-[#681322] text-white text-xs font-semibold uppercase tracking-wider transition duration-150 flex items-center justify-center gap-2 shadow-sm">
+              <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Scarica Grafica (PNG)</span>
+            </button>
+
+            <!-- Copia Testo -->
+            <button onclick="copyEditorialSummary()" class="flex-1 sm:flex-initial px-4 py-3 bg-[#ffffff] hover:bg-[#f5f5f0] border border-[#191919] text-[#191919] text-xs font-semibold uppercase tracking-wider transition duration-150 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-[#82182b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span id="btnCopyLabel">Copia Scheda</span>
+            </button>
+
+            <!-- Ripeti Test -->
+            <button onclick="restartFullQuiz()" class="px-4 py-3 border border-[#d6d6cd] hover:border-[#191919] bg-[#ffffff] text-[#57534e] hover:text-[#191919] text-xs font-medium uppercase tracking-wider transition duration-150" title="Ricomincia il test">
+              Rifai il test
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER EDITORIALE -->
+  <footer class="border-t border-[#e5e5df] bg-[#ffffff] py-6 text-center text-xs text-[#78716c] mt-auto">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="font-serif italic text-sm text-[#191919]">
+        Il Partitometro • Inchiesta Giornalistica Dati & Politica
+      </div>
+      <div>
+        Nessun dato viene registrato o memorizzato su server esterni.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALE GUIDA PER GITHUB PAGES (Stile Report Editoriale) -->
+  <div id="modalGitHub" class="fixed inset-0 z-50 bg-[#191919]/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-[#ffffff] border border-[#191919] max-w-lg w-full p-6 sm:p-8 shadow-xl relative">
+      <button onclick="document.getElementById('modalGitHub').classList.add('hidden')" class="absolute top-4 right-4 text-[#78716c] hover:text-[#191919] text-lg font-bold">✕</button>
+      
+      <div class="text-[11px] font-bold uppercase tracking-wider text-[#82182b] mb-1">
+        Istruzioni di Distribuzione
+      </div>
+      <h3 class="font-serif text-2xl font-bold text-[#191919] mb-3">
+        Come pubblicare su GitHub Pages
+      </h3>
+
+      <p class="text-xs text-[#57534e] mb-4 leading-relaxed font-sans">
+        Poiché disponi di un account GitHub Pro (o un qualsiasi account pubblico), puoi trasformare questo singolo file in un'applicazione web accessibile da chiunque in 60 secondi:
+      </p>
+
+      <ol class="space-y-3 text-xs text-[#292524] list-decimal pl-4 mb-6 leading-relaxed">
+        <li>Crea un nuovo repository su GitHub (es. <code class="bg-[#f0f0eb] px-1.5 py-0.5 rounded font-mono text-[#82182b]">partitometro</code>).</li>
+        <li>Salva questo codice come file denominato rigorosamente <code class="bg-[#f0f0eb] px-1.5 py-0.5 rounded font-mono text-[#82182b]">index.html</code> ed esegui il caricamento (upload o git push) nel ramo <strong>main</strong>.</li>
+        <li>Nel tuo repository, fai clic sulla scheda <strong>Settings</strong> &rarr; voce <strong>Pages</strong> nel menu di sinistra.</li>
+        <li>In <em>Source</em> seleziona <strong>Deploy from a branch</strong>, seleziona <strong>main</strong> e cartella <strong>/ (root)</strong>, quindi premi <strong>Save</strong>.</li>
+        <li>Il link pubblico sarà operativo in pochi istanti: <br><span class="font-mono text-[#1b365d] font-semibold text-[11px]">https://[tuo-username].github.io/partitometro/</span></li>
+      </ol>
+
+      <button onclick="document.getElementById('modalGitHub').classList.add('hidden')" class="w-full py-2.5 bg-[#191919] hover:bg-[#82182b] text-white text-xs font-semibold uppercase tracking-wider transition">
+        Chiudi finestra
+      </button>
+    </div>
+  </div>
+
+  <!-- TOAST DI NOTIFICA MINIMALE -->
+  <div id="editorialToast" class="fixed bottom-6 right-6 z-50 bg-[#191919] text-[#fbfbf9] text-xs font-medium py-3 px-5 border-l-4 border-[#82182b] shadow-lg transform translate-y-24 opacity-0 transition duration-300 pointer-events-none">
+    <span id="toastText">Testo copiato con successo</span>
+  </div>
+
+  <!-- CANVAS NASCOSTO PER RENDERING ESPORTAZIONE PNG 1200x1200px -->
+  <canvas id="exportCanvasHidden" width="1200" height="1200" class="hidden"></canvas>
+
+
+  <!-- JAVASCRIPT: LOGICA DATI, POSIZIONAMENTO E GRAFICA -->
+  <script>
+    /* =========================================================================
+       1. I 20 QUESITI FONDAMENTALI DELLA POLITICA ITALIANA (AGGIORNATI)
+       Weights:
+         x: asse economico [-1 = Sinistra/Statalismo, +1 = Destra/Mercato/Flat]
+         y: asse diritti/società [-1 = Conservatore/Identità, +1 = Progressista/Civico]
+       ========================================================================= */
+    const questionsDatabase = [
+      {
+        id: 1,
+        category: "Lavoro e Retribuzioni",
+        title: "Salario Minimo Legale a 9€ l'ora",
+        desc: "Introdurre per legge una soglia oraria minima inderogabile per tutti i lavoratori dipendenti, valida a livello nazionale a tutela dei contratti deboli.",
+        weights: { x: -1.0, y: 0.0 }
+      },
+      {
+        id: 2,
+        category: "Riforme Istituzionali",
+        title: "Premierato ed Elezione Diretta del Premier",
+        desc: "Modificare la Costituzione introducendo l'elezione diretta a suffragio universale del Presidente del Consiglio con premio di maggioranza al 55%.",
+        weights: { x: 0.0, y: -0.8 }
+      },
+      {
+        id: 3,
+        category: "Autonomie e Territorio",
+        title: "Autonomia Differenziata (Legge Calderoli)",
+        desc: "Completare il trasferimento di competenze legislative esclusive e relative risorse tributarie alle Regioni a statuto ordinario che ne facciano richiesta.",
+        weights: { x: 0.7, y: -0.4 }
+      },
+      {
+        id: 4,
+        category: "Energia e Transizione",
+        title: "Ritorno all'Energia Nucleare di Nuova Generazione",
+        desc: "Inserire nel Piano Energetico Nazionale la tecnologia dei piccoli reattori modulari (SMR) per garantire stabilità e decarbonizzazione al sistema produttivo.",
+        weights: { x: 0.5, y: -0.1 }
+      },
+      {
+        id: 5,
+        category: "Diritti e Cittadinanza",
+        title: "Ius Scholae per Minori Stranieri",
+        desc: "Concedere la cittadinanza italiana ai minori stranieri nati in Italia o giunti entro i 12 anni dopo aver frequentato con profitto almeno 5 anni di scuola regolare.",
+        weights: { x: 0.0, y: 1.0 }
+      },
+      {
+        id: 6,
+        category: "Difesa e Relazioni Estere",
+        title: "Aumento della Spesa Militare al 2% del PIL e Aiuti all'Ucraina",
+        desc: "Rispettare gli impegni assunti in sede NATO elevando gli stanziamenti della difesa al 2% del PIL e garantendo continuità negli aiuti militari a Kiev.",
+        weights: { x: 0.3, y: -0.3 }
+      },
+      {
+        id: 7,
+        category: "Fisco e Patrimonio",
+        title: "Flat Tax ed Esclusione di Patrimoniali Straordinarie",
+        desc: "Ampliare l'aliquota unica IRPEF al ceto medio autonomo, vietando categoricamente qualsiasi imposta ordinaria o straordinaria sui grandi patrimoni.",
+        weights: { x: 1.0, y: 0.0 }
+      },
+      {
+        id: 8,
+        category: "Immigrazione e Frontiere",
+        title: "Hub di Rimpatrio ed Esame Asilo Fuori dai Confini UE",
+        desc: "Trasferire la gestione materiale delle domande di protezione e dei rimpatri in strutture extraterritoriali gestite dall'Italia (modello Albania).",
+        weights: { x: 0.0, y: -1.0 }
+      },
+      {
+        id: 9,
+        category: "Bioetica e Diritti della Persona",
+        title: "Legge Nazionale sul Fine Vita e Suicidio Assistito",
+        desc: "Istituire un quadro normativo chiaro e tempi vincolanti per consentire il ricorso al suicidio medicalmente assistito a persone con sofferenze irreversibili.",
+        weights: { x: 0.0, y: 1.0 }
+      },
+      {
+        id: 10,
+        category: "Ordinamento Giudiziario",
+        title: "Separazione Netta delle Carriere dei Magistrati",
+        desc: "Sdoppiare in modo definitivo ruoli, concorsi e Consigli Superiori della Magistratura tra giudici giudicanti e pubblici ministeri requirenti.",
+        weights: { x: 0.5, y: -0.1 }
+      },
+      {
+        id: 11,
+        category: "Famiglia e Diritto Penale",
+        title: "Gestazione per Altri (GPA) come Reato Universale",
+        desc: "Perseguire penalmente i cittadini italiani che fanno ricorso alla maternità surrogata anche qualora la procedura sia legalmente compiuta all'estero.",
+        weights: { x: 0.0, y: -1.0 }
+      },
+      {
+        id: 12,
+        category: "Difesa e Servizio Civile",
+        title: "Reintroduzione della Leva Militare o Servizio Civico Vincolante",
+        desc: "Prevedere per tutti i cittadini maggiorenni un periodo obbligatorio di sei mesi di formazione alla difesa della patria o di servizio civile solidale.",
+        weights: { x: 0.0, y: -0.8 }
+      },
+      {
+        id: 13,
+        category: "Edilizia e Politiche Fiscali",
+        title: "Incentivi Edilizi ad Alta Intensità per la Transizione Green",
+        desc: "Mantenere cospicui crediti fiscali e contributi statali a fondo perduto per l'adeguamento energetico e sismico del patrimonio immobiliare privato.",
+        weights: { x: -0.8, y: 0.3 }
+      },
+      {
+        id: 14,
+        category: "Grandi Opere",
+        title: "Costruzione del Ponte sullo Stretto di Messina",
+        desc: "Considerare la realizzazione del collegamento stabile tra Sicilia e continente un'infrastruttura strategica prioritaria da finanziare con risorse pubbliche.",
+        weights: { x: 0.5, y: -0.2 }
+      },
+      {
+        id: 15,
+        category: "Libertà e Sostanze",
+        title: "Legalizzazione e Vendita Controllata della Cannabis",
+        desc: "Sottrarre la cannabis al mercato illegale attraverso un regime di produzione statale, distribuzione autorizzata e depenalizzazione dell'uso personale.",
+        weights: { x: -0.1, y: 1.0 }
+      },
+      {
+        id: 16,
+        category: "Europa e Bilancio",
+        title: "Rigoroso Rispetto dei Vincoli del Patto di Stabilità UE",
+        desc: "Subordinare ogni spesa pubblica al vincolo di rientro dal deficit concordato con la Commissione Europea, evitando scostamenti di bilancio.",
+        weights: { x: 0.8, y: 0.2 }
+      },
+      {
+        id: 17,
+        category: "Clima e Industria",
+        title: "Stop alla Vendita di Auto a Combustione dal 2035",
+        desc: "Confermare l'obiettivo europeo di neutralità tecnologica che vieta la vendita di nuove auto alimentate a benzina o diesel a partire dal 2035.",
+        weights: { x: -0.6, y: 0.7 }
+      },
+      {
+        id: 18,
+        category: "Mobilità ed Emissioni",
+        title: "Limitazioni ai Voli a Corto Raggio in Presenza di Treni AV",
+        desc: "Vietare o tassare pesantemente le tratte aeree interne qualora esista un'alternativa ferroviaria ad alta velocità inferiore alle tre ore.",
+        weights: { x: -0.6, y: 0.6 }
+      },
+      {
+        id: 19,
+        category: "Sanità e Maternità",
+        title: "Coinvolgimento delle Associazioni Pro-Vita nei Consultori",
+        desc: "Permettere formalmente l'ingresso e la collaborazione nei consultori pubblici alle associazioni che offrono supporto alla continuazione della gravidanza.",
+        weights: { x: 0.0, y: -0.9 }
+      },
+      {
+        id: 20,
+        category: "Diritti Civili",
+        title: "Matrimonio Egualitario e Riconoscimento Adozioni",
+        desc: "Riconoscere il pieno matrimonio civile per persone dello stesso sesso con pari diritti in materia di adozione e filiazione genitoriale.",
+        weights: { x: 0.0, y: 1.0 }
+      }
+    ];
+
+    /* =========================================================================
+       2. MATRICE DEI PARTITI CENSITI (Valori: 1 = Favorevole, 0 = Neutro, -1 = Contrario)
+       Include Futuro Nazionale (Destra identitaria/sovranista centralista e sociale)
+       ========================================================================= */
+    const partyMatrix = [
+      {
+        id: "fdi",
+        name: "Fratelli d'Italia",
+        shortName: "FdI",
+        leader: "Giorgia Meloni",
+        color: "#1b365d", // Blu istituzionale
+        editorialTag: "Destra Conservatrice",
+        coords: { x: 5.5, y: -7.5 },
+        // 20 Risposte ufficiali
+        votes: [-1, 1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, 0, -1, -1, 1, -1]
+      },
+      {
+        id: "pd",
+        name: "Partito Democratico",
+        shortName: "PD",
+        leader: "Elly Schlein",
+        color: "#b91c1c", // Rosso editoriale
+        editorialTag: "Centrosinistra Progressista",
+        coords: { x: -5.2, y: 7.0 },
+        votes: [1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1]
+      },
+      {
+        id: "m5s",
+        name: "Movimento 5 Stelle",
+        shortName: "M5S",
+        leader: "Giuseppe Conte",
+        color: "#d97706", // Ambra
+        editorialTag: "Sinistra Sociale / Civica",
+        coords: { x: -6.8, y: 4.2 },
+        votes: [1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, -1, 1]
+      },
+      {
+        id: "lega",
+        name: "Lega",
+        shortName: "Lega",
+        leader: "Matteo Salvini",
+        color: "#15803d", // Verde bosco
+        editorialTag: "Destra Federalista & Sovranista",
+        coords: { x: 6.8, y: -8.0 },
+        votes: [-1, 1, 1, 1, -1, 0, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1]
+      },
+      {
+        id: "fi",
+        name: "Forza Italia",
+        shortName: "FI",
+        leader: "Antonio Tajani",
+        color: "#0284c7", // Azzurro liberale
+        editorialTag: "Centrodestra Liberale & Popolare",
+        coords: { x: 6.2, y: -2.0 },
+        votes: [-1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 0, -1, 1, -1, 1, -1, -1, 0, -1]
+      },
+      {
+        id: "avs",
+        name: "Alleanza Verdi e Sinistra",
+        shortName: "AVS",
+        leader: "Angelo Bonelli / Nicola Fratoianni",
+        color: "#059669", // Verde smeraldo
+        editorialTag: "Sinistra Ecologista & Libertaria",
+        coords: { x: -8.6, y: 8.8 },
+        votes: [1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, -1, 1]
+      },
+      {
+        id: "riformisti",
+        name: "Polo Riformista (Azione / IV)",
+        shortName: "Riformisti",
+        leader: "Carlo Calenda / Matteo Renzi",
+        color: "#7c3aed", // Viola laico
+        editorialTag: "Liberal-Democratici / Centro",
+        coords: { x: 4.2, y: 3.8 },
+        votes: [1, 0, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 0, 0, -1, 1]
+      },
+      {
+        id: "fn",
+        name: "Futuro Nazionale",
+        shortName: "Futuro Naz.",
+        leader: "Destra Identitaria",
+        color: "#854d0e", // Ocra bruno sobrio
+        editorialTag: "Sovranismo Identitario & Centralista",
+        coords: { x: -0.8, y: -9.2 }, // Statalista sociale in economia, estremo conservatore sui diritti
+        // Risposte: Statalista sul lavoro (+1), esecutivo forte (+1), NO autonomia (-1), Pro nucleare (+1),
+        // No Ius Scholae (-1), No vincoli esteri/armi (-1), Neutro su flat tax pura (0), Pro Hub esteri (+1),
+        // No fine vita (-1), Separazione carriere (+1), GPA reato (+1), Leva obbligatoria (+1), No Superbonus (-1),
+        // Ponte Messina unificante (+1), No cannabis (-1), No patto UE (-1), No stop endotermico (-1),
+        // No limiti voli (-1), Pro-vita consultori (+1), No matrimonio egualitario (-1)
+        votes: [1, 1, -1, 1, -1, -1, 0, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1]
+      }
+    ];
+
+    /* =========================================================================
+       3. STATO DELL'APPLICAZIONE
+       ========================================================================= */
+    let currentIdx = 0;
+    const userVotes = new Array(questionsDatabase.length).fill(null);
+    let finalCalculation = null;
+
+    // Elementi DOM
+    const screenIntro = document.getElementById('screenIntro');
+    const screenQuiz = document.getElementById('screenQuiz');
+    const screenResults = document.getElementById('screenResults');
+    const qNumEl = document.getElementById('questionCurrentNum');
+    const qCatEl = document.getElementById('questionCategory');
+    const qTitleEl = document.getElementById('questionTitle');
+    const qDescEl = document.getElementById('questionDescription');
+    const pBar = document.getElementById('progressBar');
+    const btnPrev = document.getElementById('btnPrevQuestion');
+
+    // Eventi di navigazione
+    document.getElementById('btnStartQuiz').addEventListener('click', beginQuizFlow);
+    document.getElementById('btnOpenGitHubModal').addEventListener('click', () => {
+      document.getElementById('modalGitHub').classList.remove('hidden');
+    });
+
+    function beginQuizFlow() {
+      currentIdx = 0;
+      userVotes.fill(null);
+      screenIntro.classList.add('hidden');
+      screenResults.classList.add('hidden');
+      screenQuiz.classList.remove('hidden');
+      renderQuestionStep();
+    }
+
+    function renderQuestionStep() {
+      const q = questionsDatabase[currentIdx];
+      qNumEl.textContent = currentIdx + 1;
+      qCatEl.textContent = q.category;
+      qTitleEl.textContent = q.title;
+      qDescEl.textContent = q.desc;
+
+      // Avanzamento barra grafica
+      const pct = ((currentIdx + 1) / questionsDatabase.length) * 100;
+      pBar.style.width = `${pct}%`;
+
+      // Gestione bottone indietro
+      if (currentIdx > 0) {
+        btnPrev.classList.remove('invisible');
+      } else {
+        btnPrev.classList.add('invisible');
+      }
+    }
+
+    function recordVote(val) {
+      userVotes[currentIdx] = val;
+      if (currentIdx < questionsDatabase.length - 1) {
+        currentIdx++;
+        renderQuestionStep();
+      } else {
+        computeFullProfile();
+      }
+    }
+
+    function stepPreviousQuestion() {
+      if (currentIdx > 0) {
+        currentIdx--;
+        renderQuestionStep();
+      }
+    }
+
+    function restartFullQuiz() {
+      userVotes.fill(null);
+      currentIdx = 0;
+      screenResults.classList.add('hidden');
+      screenIntro.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* =========================================================================
+       4. CALCOLO STATISTICO ED ELABORAZIONE RISULTATI
+       ========================================================================= */
+    function computeFullProfile() {
+      // 1. Indice di concordanza percentuale con ogni partito
+      // Per ciascuna domanda: distanza massima = 2. Per 20 domande = 40 max dist.
+      const maxDistance = questionsDatabase.length * 2;
+
+      const ranked = partyMatrix.map(party => {
+        let diff = 0;
+        for (let i = 0; i < questionsDatabase.length; i++) {
+          const u = userVotes[i] !== null ? userVotes[i] : 0;
+          const p = party.votes[i];
+          diff += Math.abs(u - p);
+        }
+        const affinity = Math.round((1 - (diff / maxDistance)) * 100);
+        return {
+          ...party,
+          affinityScore: Math.min(100, Math.max(0, affinity))
+        };
+      }).sort((a, b) => b.affinityScore - a.affinityScore);
+
+      // 2. Calcolo coordinate X e Y del Political Compass
+      let econSum = 0;
+      let socialSum = 0;
+      let econMax = 0;
+      let socialMax = 0;
+
+      questionsDatabase.forEach((q, idx) => {
+        const vote = userVotes[idx] !== null ? userVotes[idx] : 0;
+        econSum += vote * q.weights.x;
+        socialSum += vote * q.weights.y;
+        econMax += Math.abs(q.weights.x);
+        socialMax += Math.abs(q.weights.y);
+      });
+
+      const userX = econMax > 0 ? Number(((econSum / econMax) * 10).toFixed(1)) : 0.0;
+      const userY = socialMax > 0 ? Number(((socialSum / socialMax) * 10).toFixed(1)) : 0.0;
+
+      // Definizione etichetta editoriale
+      let macroDefinition = "Profilo Trasversale Moderato";
+      if (userX <= -2.5 && userY >= 2.5) macroDefinition = "Sinistra Civica & Progressista";
+      else if (userX <= -2.5 && userY <= -2.5) macroDefinition = "Sinistra Sovranista & Sociale";
+      else if (userX >= 2.5 && userY >= 2.5) macroDefinition = "Liberalismo di Mercato & Terzo Polo";
+      else if (userX >= 2.5 && userY <= -2.5) macroDefinition = "Destra Conservatrice & Identitaria";
+      else if (userY >= 3.0) macroDefinition = "Progressismo Laico & Diritti Civili";
+      else if (userY <= -3.0) macroDefinition = "Tradizionalismo & Coesione Nazionale";
+      else if (userX >= 3.0) macroDefinition = "Liberismo Economico Istituzionale";
+      else if (userX <= -3.0) macroDefinition = "Statalismo Sociale & Redistribuzione";
+
+      finalCalculation = {
+        rankedParties: ranked,
+        coords: { x: userX, y: userY },
+        label: macroDefinition
+      };
+
+      displayResultsView();
+    }
+
+    function displayResultsView() {
+      screenQuiz.classList.add('hidden');
+      screenResults.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const { rankedParties, coords, label } = finalCalculation;
+      const topParty = rankedParties[0];
+
+      // Testo di sintesi iniziale
+      document.getElementById('resultHeadlineSummary').innerHTML = `
+        In base alle 20 votazioni espresse, il tuo orientamento prevalente si colloca nell'alveo del <strong>${label}</strong>.
+      `;
+
+      // Box vincitore editoriale
+      const winnerBox = document.getElementById('winnerCalloutBox');
+      winnerBox.innerHTML = `
+        <div class="text-[11px] font-bold uppercase tracking-wider text-[#82182b] mb-1">
+          Prima Concordanza Programmatica
+        </div>
+        <div class="flex items-baseline justify-between">
+          <span class="font-serif text-2xl font-bold text-[#191919]">${topParty.name}</span>
+          <span class="font-serif text-2xl font-bold text-[#82182b]">${topParty.affinityScore}%</span>
+        </div>
+        <div class="text-xs text-[#57534e] mt-1 font-sans">
+          <strong>Area politica:</strong> ${topParty.editorialTag} • <em>Rappresentanza:</em> ${topParty.leader}
+        </div>
+      `;
+
+      // Badge coordinate
+      document.getElementById('coordsDisplayBadge').textContent = `X: ${coords.x > 0 ? '+' : ''}${coords.x} | Y: ${coords.y > 0 ? '+' : ''}${coords.y}`;
+
+      // Lista completa 8 partiti con barre orizzontali pulite
+      const container = document.getElementById('fullPartiesRankList');
+      container.innerHTML = '';
+
+      rankedParties.forEach((p, idx) => {
+        const row = document.createElement('div');
+        row.className = "border-b border-[#f0f0eb] pb-2";
+
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-xs mb-1">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[#8c887b] text-[11px] w-4">${idx + 1}.</span>
+              <span class="w-2.5 h-2.5 inline-block" style="background-color: ${p.color}"></span>
+              <span class="font-semibold text-[#191919]">${p.name}</span>
+              <span class="text-[11px] text-[#78716c] hidden sm:inline">(${p.shortName})</span>
+            </div>
+            <div class="font-mono font-bold text-[#191919]">
+              ${p.affinityScore}%
+            </div>
+          </div>
+          <div class="w-full h-1.5 bg-[#f0f0eb]">
+            <div class="h-1.5" style="width: ${p.affinityScore}%; background-color: ${p.color}"></div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      // Disegno del Canvas Cartesiano chiaro
+      drawEditorialCompass(document.getElementById('compassCanvas'), coords, rankedParties, false);
+    }
+
+    /* =========================================================================
+       5. DISEGNO DEL PIANO CARTESIANO EDITORIALE SU CANVAS
+       ========================================================================= */
+    function drawEditorialCompass(canvas, coords, partyList, isExport = false) {
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const center = w / 2;
+      const unitScale = (w * 0.38) / 10; // 10 unità su 38% del semi-raggio
+
+      // Sfondo carta avorio chiarissimo
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      // Bordo sottile della pagina
+      ctx.strokeStyle = '#e2e2dc';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(0, 0, w, h);
+
+      // Sottile griglia di fondo
+      ctx.strokeStyle = '#f2f2ed';
+      ctx.lineWidth = isExport ? 1.5 : 1;
+      [-8, -5, -2, 2, 5, 8].forEach(tick => {
+        // Linee verticali
+        ctx.beginPath();
+        ctx.moveTo(center + tick * unitScale, 20);
+        ctx.lineTo(center + tick * unitScale, h - 20);
+        ctx.stroke();
+        // Linee orizzontali
+        ctx.beginPath();
+        ctx.moveTo(20, center + tick * unitScale);
+        ctx.lineTo(w - 20, center + tick * unitScale);
+        ctx.stroke();
+      });
+
+      // Assi Cartesiani Principali Tratteggiati o Sottili Istituzionali
+      ctx.strokeStyle = '#78716c';
+      ctx.lineWidth = isExport ? 2 : 1.2;
+      ctx.setLineDash([4, 4]);
+
+      // Asse X (Economico)
+      ctx.beginPath();
+      ctx.moveTo(15, center);
+      ctx.lineTo(w - 15, center);
+      ctx.stroke();
+
+      // Asse Y (Società / Diritti)
+      ctx.beginPath();
+      ctx.moveTo(center, 15);
+      ctx.lineTo(center, h - 15);
+      ctx.stroke();
+
+      ctx.setLineDash([]); // Ripristina linea continua
+
+      // Etichette Tipografiche dei 4 Poli
+      ctx.fillStyle = '#57534e';
+      ctx.font = isExport ? 'bold 15px Newsreader, serif' : '600 9px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Nord (+Y)
+      ctx.fillText('PROGRESSISMO CIVICO', center, isExport ? 30 : 14);
+      // Sud (-Y)
+      ctx.fillText('CONSERVATORISMO & IDENTITÀ', center, h - (isExport ? 30 : 14));
+
+      // Ovest (-X)
+      ctx.textAlign = 'left';
+      ctx.fillText('← STATALISMO SOCIALE', isExport ? 25 : 8, center - (isExport ? 16 : 8));
+
+      // Est (+X)
+      ctx.textAlign = 'right';
+      ctx.fillText('LIBERISMO DI MERCATO →', w - (isExport ? 25 : 8), center - (isExport ? 16 : 8));
+
+      // Disegno posizionamento partiti (cerchietti nitidi con sigla)
+      partyList.forEach(p => {
+        const px = center + (p.coords.x * unitScale);
+        const py = center - (p.coords.y * unitScale); // Y positivo verso l'alto
+
+        // Punto colorato
+        ctx.beginPath();
+        ctx.arc(px, py, isExport ? 7 : 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = isExport ? 2 : 1.2;
+        ctx.stroke();
+
+        // Etichetta testuale del partito
+        ctx.font = isExport ? '600 13px Inter, sans-serif' : '600 8.5px Inter, sans-serif';
+        ctx.fillStyle = '#1c1917';
+        ctx.textAlign = 'center';
+        ctx.fillText(p.shortName, px, py - (isExport ? 12 : 7));
+      });
+
+      // Disegno del punto "LA TUA POSIZIONE" (Utente)
+      const ux = center + (coords.x * unitScale);
+      const uy = center - (coords.y * unitScale);
+
+      // Cerchio di accento bordeaux
+      ctx.beginPath();
+      ctx.arc(ux, uy, isExport ? 16 : 10, 0, Math.PI * 2);
+      ctx.strokeStyle = '#82182b';
+      ctx.lineWidth = isExport ? 3 : 2;
+      ctx.stroke();
+
+      // Punto centrale pieno
+      ctx.beginPath();
+      ctx.arc(ux, uy, isExport ? 7 : 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#82182b';
+      ctx.fill();
+
+      // Targhetta "TU"
+      ctx.font = isExport ? 'bold 15px Newsreader, serif' : 'bold 10px Newsreader, serif';
+      ctx.fillStyle = '#82182b';
+      ctx.textAlign = 'center';
+      ctx.fillText('● LA TUA POSIZIONE', ux, uy + (isExport ? 26 : 16));
+    }
+
+    /* =========================================================================
+       6. ESPORTAZIONE GRAFICA AD ALTA DEFINIZIONE (1200x1200px PNG)
+       ========================================================================= */
+    function exportEditorialPNG() {
+      if (!finalCalculation) return;
+
+      const canvas = document.getElementById('exportCanvasHidden');
+      const ctx = canvas.getContext('2d');
+      const { rankedParties, coords, label } = finalCalculation;
+
+      const W = 1200;
+      const H = 1200;
+
+      // 1. Sfondo carta avorio giornalistico
+      ctx.fillStyle = '#fbfbf9';
+      ctx.fillRect(0, 0, W, H);
+
+      // Bordo editoriale con doppia linea interna
+      ctx.strokeStyle = '#191919';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(36, 36, W - 72, H - 72);
+      ctx.strokeStyle = '#d0d0c6';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(42, 42, W - 84, H - 84);
+
+      // 2. Testata Superiore
+      ctx.fillStyle = '#82182b';
+      ctx.font = '600 14px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('OSSERVATORIO DATI & POLITICA • SPECIALE ELEZIONI', 70, 85);
+
+      ctx.fillStyle = '#78716c';
+      ctx.textAlign = 'right';
+      ctx.fillText('DOCUMENTO DI SINTESI • 20 QUESITI', W - 70, 85);
+
+      // Linea orizzontale di separazione
+      ctx.strokeStyle = '#191919';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(70, 102);
+      ctx.lineTo(W - 70, 102);
+      ctx.stroke();
+
+      // Titolo Principale
+      ctx.fillStyle = '#191919';
+      ctx.font = 'bold 50px Newsreader, Georgia, serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Il Partitometro Italiano', 70, 160);
+
+      // Sottotitolo ideologico
+      ctx.fillStyle = '#57534e';
+      ctx.font = 'italic 24px Newsreader, serif';
+      ctx.fillText(`Orientamento Rilevato: ${label}`, 70, 196);
+
+      // 3. Layout a due colonne: Sinistra (Podio) | Destra (Diagramma Cartesiano)
+      
+      // COLONNA SINISTRA: Classifica e Podio (larghezza 480px)
+      const colLeft = 70;
+      const startY = 240;
+
+      ctx.fillStyle = '#191919';
+      ctx.font = '600 16px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('CONCORDANZA PROGRAMMATICA', colLeft, startY);
+
+      ctx.strokeStyle = '#e2e2dc';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(colLeft, startY + 10);
+      ctx.lineTo(colLeft + 470, startY + 10);
+      ctx.stroke();
+
+      // Scorrimento partiti
+      rankedParties.slice(0, 6).forEach((p, idx) => {
+        const itemY = startY + 50 + (idx * 64);
+
+        // Badge medaglia / posizione
+        ctx.fillStyle = idx === 0 ? '#82182b' : '#78716c';
+        ctx.font = 'bold 15px Inter, sans-serif';
+        ctx.fillText(`${idx + 1}.`, colLeft, itemY);
+
+        // Nome partito
+        ctx.fillStyle = '#191919';
+        ctx.font = '600 20px Newsreader, serif';
+        ctx.fillText(p.name, colLeft + 30, itemY);
+
+        // Percentuale
+        ctx.fillStyle = idx === 0 ? '#82182b' : '#191919';
+        ctx.font = 'bold 20px Inter, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(`${p.affinityScore}%`, colLeft + 470, itemY);
+        ctx.textAlign = 'left';
+
+        // Barra orizzontale
+        ctx.fillStyle = '#e5e5df';
+        ctx.fillRect(colLeft + 30, itemY + 10, 440, 8);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(colLeft + 30, itemY + 10, (440 * p.affinityScore) / 100, 8);
+      });
+
+      // Box di sintesi sotto la classifica
+      const noteBoxY = startY + 460;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(colLeft, noteBoxY, 470, 150);
+      ctx.strokeStyle = '#e2e2dc';
+      ctx.strokeRect(colLeft, noteBoxY, 470, 150);
+
+      ctx.fillStyle = '#82182b';
+      ctx.font = 'bold 13px Inter, sans-serif';
+      ctx.fillText('ANALISI DEI RISULTATI', colLeft + 20, noteBoxY + 32);
+
+      ctx.fillStyle = '#57534e';
+      ctx.font = '14px Inter, sans-serif';
+      const topP = rankedParties[0];
+      ctx.fillText(`Massima affinità registrata con: ${topP.name} (${topP.affinityScore}%)`, colLeft + 20, noteBoxY + 62);
+      ctx.fillText(`Posizione cartesiana: X = ${coords.x > 0 ? '+' : ''}${coords.x} | Y = ${coords.y > 0 ? '+' : ''}${coords.y}`, colLeft + 20, noteBoxY + 88);
+      ctx.fillText(`Elaborazione neutrale su 20 quesiti parlamentari.`, colLeft + 20, noteBoxY + 114);
+
+      // COLONNA DESTRA: Political Compass (500x500px)
+      const compassX = 620;
+      const compassY = startY;
+      const compassSize = 510;
+
+      ctx.fillStyle = '#191919';
+      ctx.font = '600 16px Inter, sans-serif';
+      ctx.fillText('DIAGRAMMA CARTESIANO DEI PARTITI', compassX, compassY);
+
+      ctx.strokeStyle = '#e2e2dc';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(compassX, compassY + 10);
+      ctx.lineTo(compassX + compassSize, compassY + 10);
+      ctx.stroke();
+
+      // Rendering Compass su canvas temporaneo e inserimento
+      const miniC = document.createElement('canvas');
+      miniC.width = compassSize;
+      miniC.height = compassSize;
+      drawEditorialCompass(miniC, coords, rankedParties, true);
+
+      ctx.drawImage(miniC, compassX, compassY + 25);
+
+      // Coordinate sotto al grafico
+      ctx.fillStyle = '#78716c';
+      ctx.font = '13px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Asse X: Sinistra Sociale ↔ Mercato  |  Asse Y: Conservatore ↔ Progressista', compassX + (compassSize / 2), compassY + compassSize + 55);
+
+      // 4. Piè di Pagina Editoriale
+      const footerY = 1110;
+      ctx.strokeStyle = '#e5e5df';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(70, footerY);
+      ctx.lineTo(W - 70, footerY);
+      ctx.stroke();
+
+      ctx.fillStyle = '#78716c';
+      ctx.font = '13px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Generato tramite Il Partitometro • Inchiesta interattiva open-source ospitata su GitHub Pages', 70, footerY + 30);
+
+      ctx.fillStyle = '#191919';
+      ctx.font = 'bold 13px Inter, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('Fai il test e confronta la tua posizione', W - 70, footerY + 30);
+
+      // Trigger del Download File PNG
+      try {
+        const link = document.createElement('a');
+        link.download = `partitometro-risultati-${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        triggerToast('Scheda grafica ad alta risoluzione scaricata');
+      } catch (e) {
+        triggerToast('Errore durante il salvataggio della grafica.');
+      }
+    }
+
+    /* =========================================================================
+       7. CONDIVISIONE TESTUALE & UTILITY
+       ======================================================================== */
+    function formatTextSummary() {
+      if (!finalCalculation) return "";
+      const { rankedParties, coords, label } = finalCalculation;
+      const p1 = rankedParties[0];
+      const p2 = rankedParties[1];
+      const last = rankedParties[rankedParties.length - 1];
+
+      return `IL PARTITOMETRO • RISULTATI DEL MIO TEST\n` +
+             `----------------------------------------\n` +
+             `Profilo politico: ${label}\n` +
+             `Coordinate: Economia X = ${coords.x > 0 ? '+' : ''}${coords.x} | Diritti Y = ${coords.y > 0 ? '+' : ''}${coords.y}\n\n` +
+             `1° Partito più affine: ${p1.name} (${p1.affinityScore}%)\n` +
+             `2° Partito più affine: ${p2.name} (${p2.affinityScore}%)\n` +
+             `Maggiore distanza: ${last.name} (${last.affinityScore}%)\n\n` +
+             `Test calcolato su 20 quesiti di politica parlamentare italiana.`;
+    }
+
+    function copyEditorialSummary() {
+      const summary = formatTextSummary();
+      const tempArea = document.createElement('textarea');
+      tempArea.value = summary;
+      tempArea.style.position = 'fixed';
+      tempArea.style.opacity = '0';
+      document.body.appendChild(tempArea);
+      tempArea.select();
+
+      try {
+        document.execCommand('copy');
+        document.body.removeChild(tempArea);
+        triggerToast('Scheda di sintesi copiata negli appunti');
+        const lbl = document.getElementById('btnCopyLabel');
+        lbl.textContent = 'Copiato!';
+        setTimeout(() => { lbl.textContent = 'Copia Scheda'; }, 2000);
+      } catch (err) {
+        document.body.removeChild(tempArea);
+        triggerToast('Impossibile copiare il testo.');
+      }
+    }
+
+    function triggerToast(text) {
+      const toast = document.getElementById('editorialToast');
+      document.getElementById('toastText').textContent = text;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 2600);
+    }
+  </script>
+</body>
+</html>
